@@ -1,77 +1,48 @@
-import java.util.*;
+/**
+ * Use Case 16: Sort Passenger Bogies by Capacity
+ * This class demonstrates manual sorting of passenger
+ * bogie capacities using the Bubble Sort algorithm 
+ * instead of built-in sorting utilities.
+ */
+public class TrainAppJava { [cite: 29]
 
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+    public static void main(String[] args) { [cite: 30]
+        // Header display [cite: 35]
+        System.out.println("==================================================");
+        System.out.println(" UC16 - Manual Sorting using Bubble Sort ");
+        System.out.println("==================================================");
 
-class GoodsBogie {
-    private String type;
-    private String cargo;
+        // Create array of passenger bogie capacities
+        int[] capacities = {72, 56, 24, 70, 68}; [cite: 37]
 
-    public GoodsBogie(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void assignCargo(String cargo) {
-        try {
-            if (type.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-
-                throw new CargoSafetyException(
-                        "Unsafe Assignment: Rectangular bogie cannot carry Petroleum");
-            }
-
-            this.cargo = cargo;
-            System.out.println("✅ Cargo assigned successfully: " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("❌ Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("ℹ️ Cargo assignment attempt completed for bogie type: " + type);
+        // Display original order
+        System.out.println("Original Capacities:"); [cite: 39]
+        for (int capacity : capacities) { [cite: 42]
+            System.out.print(capacity + " ");
         }
-    }
 
-    @Override
-    public String toString() {
-        return "Type: " + type + " | Cargo: " + (cargo == null ? "None" : cargo);
-    }
-}
+        // BUBBLE SORT LOGIC
+        // Outer Loop controls number of passes
+        for (int i = 0; i < capacities.length - 1; i++) { [cite: 45]
+            // Inner Loop for comparing adjacent elements
+            for (int j = 0; j < capacities.length - 1 - i; j++) { [cite: 53, 62]
+                
+                // If left element is greater than right, swap them
+                if (capacities[j] > capacities[j + 1]) {
+                    // Swapping Logic using a temporary variable
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp; [cite: 55]
+                }
+            }
+        }
 
-public class TrainApp {
+        // Display sorted result
+        System.out.println("\n\nSorted Capacities (Ascending):"); [cite: 47]
+        for (int capacity : capacities) { [cite: 49]
+            System.out.print(capacity + " ");
+        }
 
-    public static void main(String[] args) {
-
-        // Create bogies
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
-
-
-        System.out.println("\nAssigning Petroleum to Cylindrical:");
-        b1.assignCargo("Petroleum");
-
-
-        System.out.println("\nAssigning Petroleum to Rectangular:");
-        b2.assignCargo("Petroleum");
-
-        System.out.println("\nAssigning Coal to Rectangular:");
-        b2.assignCargo("Coal");
-
-
-        System.out.println("\n--- Final Bogie Status ---");
-        System.out.println(b1);
-        System.out.println(b2);
-
-        System.out.println("\nProgram continues safely after handling exceptions.");
+        System.out.println("\n\nUC16 sorting completed."); [cite: 86]
     }
 }

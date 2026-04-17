@@ -1,48 +1,35 @@
+import java.util.Arrays;
+
 /**
- * Use Case 16: Sort Passenger Bogies by Capacity
- * This class demonstrates manual sorting of passenger
- * bogie capacities using the Bubble Sort algorithm 
- * instead of built-in sorting utilities.
+ * Use Case 17: Sort Bogie Names Using Arrays.sort()
+ * This class demonstrates sorting of bogie type names 
+ * alphabetically using Java's built-in Arrays.sort() method.
  */
-public class TrainAppJava { [cite: 29]
+public class TrainAppJava {
 
-    public static void main(String[] args) { [cite: 30]
-        // Header display [cite: 35]
+    public static void main(String[] args) {
+        // Header display
         System.out.println("==================================================");
-        System.out.println(" UC16 - Manual Sorting using Bubble Sort ");
+        System.out.println(" UC17 - Sort Bogie Names Using Arrays.sort() ");
         System.out.println("==================================================");
 
-        // Create array of passenger bogie capacities
-        int[] capacities = {72, 56, 24, 70, 68}; [cite: 37]
+        // Create an array of bogie type names
+        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
 
         // Display original order
-        System.out.println("Original Capacities:"); [cite: 39]
-        for (int capacity : capacities) { [cite: 42]
-            System.out.print(capacity + " ");
-        }
+        // Print using Arrays.toString() for concise output
+        System.out.println("\nOriginal Bogie Names:");
+        System.out.println(Arrays.toString(bogieNames));
 
-        // BUBBLE SORT LOGIC
-        // Outer Loop controls number of passes
-        for (int i = 0; i < capacities.length - 1; i++) { [cite: 45]
-            // Inner Loop for comparing adjacent elements
-            for (int j = 0; j < capacities.length - 1 - i; j++) { [cite: 53, 62]
-                
-                // If left element is greater than right, swap them
-                if (capacities[j] > capacities[j + 1]) {
-                    // Swapping Logic using a temporary variable
-                    int temp = capacities[j];
-                    capacities[j] = capacities[j + 1];
-                    capacities[j + 1] = temp; [cite: 55]
-                }
-            }
-        }
+        // Use Arrays.sort() for optimized sorting
+        // This uses Dual-Pivot Quicksort or TimSort internally
+        Arrays.sort(bogieNames);
 
-        // Display sorted result
-        System.out.println("\n\nSorted Capacities (Ascending):"); [cite: 47]
-        for (int capacity : capacities) { [cite: 49]
-            System.out.print(capacity + " ");
-        }
+        // Display sorted result (Alphabetical)
+        System.out.println("\nSorted Bogie Names (Alphabetical):");
+        System.out.println(Arrays.toString(bogieNames));
 
-        System.out.println("\n\nUC16 sorting completed."); [cite: 86]
+        // Completion message
+        System.out.println("\nUC17 sorting completed....");
     }
 }

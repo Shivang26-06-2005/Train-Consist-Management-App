@@ -1,67 +1,62 @@
-import java.util.Arrays;
-
 /**
- * Use Case 19: Binary Search for Bogie ID
- * This class demonstrates searching for a specific bogie ID 
- * using the Binary Search algorithm on sorted data.
+ * [cite: 1381] Use Case 20: Exception Handling During Search Operations
+ * [cite: 1383] This class prevents searching if the train consist is empty 
+ * by throwing a custom exception early (fail-fast behavior).
+ * [cite: 1390] @author Developer
  */
-public class TrainAppJava {
+public class UseCase20TrainConsistigent {
 
     public static void main(String[] args) {
-        // Header display
+        // [cite: 1441] Header display
         System.out.println("==================================================");
-        System.out.println(" UC19 - Binary Search for Bogie ID ");
+        System.out.println(" UC20 - Exception Handling During Search ");
         System.out.println("==================================================");
 
-        // Create array of bogie IDs
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        // [cite: 1386] Scenario 1: Empty array to trigger exception
+        String[] emptyBogieIds = {};
+        
+        // [cite: 1386] Scenario 2: Populated array for a valid search
+        String[] activeBogieIds = {"BG101", "BG205", "BG309"};
+        String searchKey = "BG205";
 
-        // Binary Search precondition: The data MUST be sorted
-        Arrays.sort(bogieIds);
-
-        // Search key
-        String searchKey = "BG309";
-
-        // Display sorted available bogies
-        System.out.println("Sorted Bogie IDs:");
-        for (String id : bogieIds) {
-            System.out.println(id);
+        try {
+            System.out.println("Testing Search on Empty Consist...");
+            //  This call will trigger the fail-fast validation
+            performSafeSearch(emptyBogieIds, searchKey);
+        } catch (IllegalStateException e) {
+            // [cite: 1435, 1466] Catch and display the early validation error
+            System.err.println("Error: " + e.getMessage());
         }
 
-        // --- BINARY SEARCH LOGIC ---
-        // Initialize boundary indexes
-        int low = 0;
-        int high = bogieIds.length - 1;
-        int resultIndex = -1;
+        try {
+            System.out.println("\nTesting Search on Active Consist...");
+            // [cite: 1468] This call should pass validation and execute the search
+            boolean found = performSafeSearch(activeBogieIds, searchKey);
+            System.out.println("Bogie " + searchKey + " found: " + found);
+        } catch (IllegalStateException e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+        }
 
-        // Repeat until found or range is exhausted
-        while (low <= high) {
-            // Find the middle index
-            int mid = low + (high - low) / 2;
+        System.out.println("\nUC20 exception handling completed.");
+    }
 
-            // Compare search key with middle value lexicographically
-            int comparison = searchKey.compareTo(bogieIds[mid]);
+    /**
+     * [cite: 1432, 1433] Validates data and performs search.
+     * @throws IllegalStateException if the array is empty.
+     */
+    public static boolean performSafeSearch(String[] bogieIds, String key) {
+        // [cite: 1377, 1466] FAIL-FAST VALIDATION
+        // Before running search logic, ensure the data structure is not empty.
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("Search failed: No bogies available in the train consist.");
+        }
 
-            if (comparison == 0) {
-                // Match found at mid
-                resultIndex = mid;
-                break;
-            } else if (comparison > 0) {
-                // Key is in the right half
-                low = mid + 1;
-            } else {
-                // Key is in the left half
-                high = mid - 1;
+        // [cite: 1414, 1416] If validation passes, proceed with search logic
+        for (String id : bogieIds) {
+            if (id.equals(key)) {
+                return true;
             }
         }
-
-        // Display search result
-        if (resultIndex != -1) {
-            System.out.println("\nBogie " + searchKey + " found using Binary Search.");
-        } else {
-            System.out.println("\nBogie " + searchKey + " not found using Binary Search.");
-        }
-
-        System.out.println("\nUC19 search completed...");
+        return false;
     }
 }

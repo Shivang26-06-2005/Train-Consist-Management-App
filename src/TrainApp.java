@@ -1,53 +1,67 @@
+import java.util.Arrays;
+
 /**
- * Use Case 18: Linear Search for Bogie ID
- * This class demonstrates searching for a specific bogie ID
- * using a simple Linear Search algorithm.
- * @author Developer
+ * Use Case 19: Binary Search for Bogie ID
+ * This class demonstrates searching for a specific bogie ID 
+ * using the Binary Search algorithm on sorted data.
  */
 public class TrainAppJava {
 
     public static void main(String[] args) {
         // Header display
         System.out.println("==================================================");
-        System.out.println(" UC18 - Linear Search for Bogie ID ");
+        System.out.println(" UC19 - Binary Search for Bogie ID ");
         System.out.println("==================================================");
 
         // Create array of bogie IDs
         String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // Bogie ID to search (Search Key)
-        String searchId = "BG309";
+        // Binary Search precondition: The data MUST be sorted
+        Arrays.sort(bogieIds);
 
-        // Display all available bogie IDs
-        System.out.println("Available Bogie IDs:");
+        // Search key
+        String searchKey = "BG309";
+
+        // Display sorted available bogies
+        System.out.println("Sorted Bogie IDs:");
         for (String id : bogieIds) {
             System.out.println(id);
         }
 
-        // LINEAR SEARCH LOGIC
-        // Flag to track if the ID is found
-        boolean found = false;
+        // --- BINARY SEARCH LOGIC ---
+        // Initialize boundary indexes
+        int low = 0;
+        int high = bogieIds.length - 1;
+        int resultIndex = -1;
 
-        // Traverse each element sequentially
-        for (String id : bogieIds) {
-            // Compare each element with the search key using equals()
-            if (id.equals(searchId)) {
-                found = true;
-                // Early Termination - stop once a match is found
+        // Repeat until found or range is exhausted
+        while (low <= high) {
+            // Find the middle index
+            int mid = low + (high - low) / 2;
+
+            // Compare search key with middle value lexicographically
+            int comparison = searchKey.compareTo(bogieIds[mid]);
+
+            if (comparison == 0) {
+                // Match found at mid
+                resultIndex = mid;
                 break;
+            } else if (comparison > 0) {
+                // Key is in the right half
+                low = mid + 1;
+            } else {
+                // Key is in the left half
+                high = mid - 1;
             }
         }
 
-        // Display result
-        if (found) {
-            // Match found
-            System.out.println("\nBogie " + searchId + " found in train consist.");
+        // Display search result
+        if (resultIndex != -1) {
+            System.out.println("\nBogie " + searchKey + " found using Binary Search.");
         } else {
-            // Match not found
-            System.out.println("\nBogie " + searchId + " not found in train consist.");
+            System.out.println("\nBogie " + searchKey + " not found using Binary Search.");
         }
 
-        // Completion message
-        System.out.println("UC18 search completed...");
+        System.out.println("\nUC19 search completed...");
     }
 }

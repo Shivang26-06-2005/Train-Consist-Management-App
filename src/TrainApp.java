@@ -1,35 +1,53 @@
-import java.util.Arrays;
-
 /**
- * Use Case 17: Sort Bogie Names Using Arrays.sort()
- * This class demonstrates sorting of bogie type names 
- * alphabetically using Java's built-in Arrays.sort() method.
+ * Use Case 18: Linear Search for Bogie ID
+ * This class demonstrates searching for a specific bogie ID
+ * using a simple Linear Search algorithm.
+ * @author Developer
  */
 public class TrainAppJava {
 
     public static void main(String[] args) {
         // Header display
         System.out.println("==================================================");
-        System.out.println(" UC17 - Sort Bogie Names Using Arrays.sort() ");
+        System.out.println(" UC18 - Linear Search for Bogie ID ");
         System.out.println("==================================================");
 
-        // Create an array of bogie type names
-        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        // Create array of bogie IDs
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // Display original order
-        // Print using Arrays.toString() for concise output
-        System.out.println("\nOriginal Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
+        // Bogie ID to search (Search Key)
+        String searchId = "BG309";
 
-        // Use Arrays.sort() for optimized sorting
-        // This uses Dual-Pivot Quicksort or TimSort internally
-        Arrays.sort(bogieNames);
+        // Display all available bogie IDs
+        System.out.println("Available Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
+        }
 
-        // Display sorted result (Alphabetical)
-        System.out.println("\nSorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(bogieNames));
+        // LINEAR SEARCH LOGIC
+        // Flag to track if the ID is found
+        boolean found = false;
+
+        // Traverse each element sequentially
+        for (String id : bogieIds) {
+            // Compare each element with the search key using equals()
+            if (id.equals(searchId)) {
+                found = true;
+                // Early Termination - stop once a match is found
+                break;
+            }
+        }
+
+        // Display result
+        if (found) {
+            // Match found
+            System.out.println("\nBogie " + searchId + " found in train consist.");
+        } else {
+            // Match not found
+            System.out.println("\nBogie " + searchId + " not found in train consist.");
+        }
 
         // Completion message
-        System.out.println("\nUC17 sorting completed....");
+        System.out.println("UC18 search completed...");
     }
 }
